@@ -1,0 +1,116 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.88kB 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.10-slim
+#2 DONE 1.2s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B 0.0s done
+#3 DONE 0.0s
+
+#4 [ 1/12] FROM docker.io/library/python:3.10-slim@sha256:a636f5aafba3654ac4d04d7c234a75b77fa26646fe0dafe4654b731bc413b02f
+#4 DONE 0.0s
+
+#5 [ 2/12] RUN apt-get update && apt-get install -y --no-install-recommends     gcc     libpq-dev     unixodbc-dev     tesseract-ocr     poppler-utils     curl     gnupg     ca-certificates     && rm -rf /var/lib/apt/lists/*
+#5 CACHED
+
+#6 [ 3/12] RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /usr/share/keyrings/microsoft-archive-keyring.gpg
+#6 CACHED
+
+#7 [ 4/12] RUN echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft-archive-keyring.gpg] https://packages.microsoft.com/repos/microsoft-debian-11-prod bullseye main" > /etc/apt/sources.list.d/microsoft.list
+#7 CACHED
+
+#8 [internal] load build context
+#8 transferring context: 506B done
+#8 DONE 0.0s
+
+#9 [ 5/12] RUN apt-get update
+#9 0.407 Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+#9 0.522 Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+#9 0.568 Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [48.0 kB]
+#9 0.611 Get:4 http://deb.debian.org/debian bookworm/main amd64 Packages [8792 kB]
+#9 0.622 Ign:5 https://packages.microsoft.com/repos/microsoft-debian-11-prod bullseye InRelease
+#9 0.824 Err:6 https://packages.microsoft.com/repos/microsoft-debian-11-prod bullseye Release
+#9 0.824   404  Not Found [IP: 13.107.246.44 443]
+#9 1.216 Get:7 http://deb.debian.org/debian bookworm-updates/main amd64 Packages [13.5 kB]
+#9 1.216 Get:8 http://deb.debian.org/debian-security bookworm-security/main amd64 Packages [242 kB]
+#9 2.267 Reading package lists...
+#9 2.754 E: The repository 'https://packages.microsoft.com/repos/microsoft-debian-11-prod bullseye Release' does not have a Release file.
+#9 ERROR: process "/bin/sh -c apt-get update" did not complete successfully: exit code: 100
+------
+ > [ 5/12] RUN apt-get update:
+0.522 Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+0.568 Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [48.0 kB]
+0.611 Get:4 http://deb.debian.org/debian bookworm/main amd64 Packages [8792 kB]
+0.622 Ign:5 https://packages.microsoft.com/repos/microsoft-debian-11-prod bullseye InRelease
+0.824 Err:6 https://packages.microsoft.com/repos/microsoft-debian-11-prod bullseye Release
+0.824   404  Not Found [IP: 13.107.246.44 443]
+1.216 Get:7 http://deb.debian.org/debian bookworm-updates/main amd64 Packages [13.5 kB]
+1.216 Get:8 http://deb.debian.org/debian-security bookworm-security/main amd64 Packages [242 kB]
+
+2.754 E: The repository 'https://packages.microsoft.com/repos/microsoft-debian-11-prod bullseye Release' does not have a Release file.
+------
+Dockerfile:29
+--------------------
+  27 |     
+  28 |     # 6. Update package lists to include the new Microsoft repository
+  29 | >>> RUN apt-get update
+  30 |     
+  31 |     # 7. Install the Microsoft ODBC Driver for SQL Server
+--------------------
+ERROR: failed to solve: process "/bin/sh -c apt-get update" did not complete successfully: exit code: 100
+139  /usr/local/bin/dockerd --config-file /run/config/docker/daemon.json --containerd /run/containerd/containerd.sock --pidfile /run/desktop/docker.pid --swarm-default-advertise-addr=192.168.65.3 --host-gateway-ip 192.168.65.254
+github.com/moby/buildkit/executor/runcexecutor.exitError
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/executor/runcexecutor/executor.go:391
+github.com/moby/buildkit/executor/runcexecutor.(*runcExecutor).Run
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/executor/runcexecutor/executor.go:339
+github.com/moby/buildkit/solver/llbsolver/ops.(*ExecOp).Exec
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/llbsolver/ops/exec.go:472
+github.com/moby/buildkit/solver.(*sharedOp).Exec.func2
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/jobs.go:1100
+github.com/moby/buildkit/util/flightcontrol.(*call[...]).run
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/util/flightcontrol/flightcontrol.go:122
+sync.(*Once).doSlow
+	/usr/local/go/src/sync/once.go:74
+sync.(*Once).Do
+	/usr/local/go/src/sync/once.go:65
+runtime.goexit
+	/usr/local/go/src/runtime/asm_amd64.s:1695
+
+15932 v0.19.2-desktop.1 C:\Program Files\Docker\cli-plugins\docker-buildx.exe buildx build -t ropsdocprocess .
+google.golang.org/grpc.(*ClientConn).Invoke
+	google.golang.org/grpc@v1.66.3/call.go:35
+github.com/moby/buildkit/api/services/control.(*controlClient).Solve
+	github.com/moby/buildkit@v0.18.0/api/services/control/control_grpc.pb.go:88
+github.com/moby/buildkit/client.(*Client).solve.func2
+	github.com/moby/buildkit@v0.18.0/client/solve.go:269
+golang.org/x/sync/errgroup.(*Group).Go.func1
+	golang.org/x/sync@v0.8.0/errgroup/errgroup.go:78
+runtime.goexit
+	runtime/asm_amd64.s:1700
+
+139  /usr/local/bin/dockerd --config-file /run/config/docker/daemon.json --containerd /run/containerd/containerd.sock --pidfile /run/desktop/docker.pid --swarm-default-advertise-addr=192.168.65.3 --host-gateway-ip 192.168.65.254
+github.com/moby/buildkit/solver.(*edge).execOp
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/edge.go:966
+github.com/moby/buildkit/solver/internal/pipe.NewWithFunction[...].func2
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/internal/pipe/pipe.go:78
+runtime.goexit
+	/usr/local/go/src/runtime/asm_amd64.s:1695
+
+15932 v0.19.2-desktop.1 C:\Program Files\Docker\cli-plugins\docker-buildx.exe buildx build -t ropsdocprocess .
+github.com/moby/buildkit/client.(*Client).solve.func2
+	github.com/moby/buildkit@v0.18.0/client/solve.go:285
+golang.org/x/sync/errgroup.(*Group).Go.func1
+	golang.org/x/sync@v0.8.0/errgroup/errgroup.go:78
+
+139  /usr/local/bin/dockerd --config-file /run/config/docker/daemon.json --containerd /run/containerd/containerd.sock --pidfile /run/desktop/docker.pid --swarm-default-advertise-addr=192.168.65.3 --host-gateway-ip 192.168.65.254
+github.com/moby/buildkit/solver/llbsolver/ops.(*ExecOp).Exec
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/llbsolver/ops/exec.go:493
+github.com/moby/buildkit/solver.(*sharedOp).Exec.func2
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/jobs.go:1100
+
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/bzj83i8plewbnw9ath69br9sj
