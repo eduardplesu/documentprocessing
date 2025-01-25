@@ -24,6 +24,34 @@ bash
 Copy
 Edit
 
+Steps to Update Environment Variables
+Create a .env file in the project root directory.
+
+Add the environment variables in the following format:
+
+plaintext
+Copy
+Edit
+AZURE_FORM_RECOGNIZER_ENDPOINT=https://<your-formrecognizer>.cognitiveservices.azure.com/
+AZURE_FORM_RECOGNIZER_KEY=YOUR_KEY
+AZURE_OPENAI_ENDPOINT=https://<your-openai>.openai.azure.com/
+AZURE_OPENAI_KEY=YOUR_KEY
+AZURE_OPENAI_DEPLOYMENT=gpt-4o
+AZURE_SQL_SERVER=rops-sql-server.database.windows.net
+AZURE_SQL_DATABASE=rops_database
+AZURE_SQL_USER=YOUR_USERNAME
+AZURE_SQL_PASSWORD=YOUR_PASSWORD
+AZURE_SQL_DRIVER=ODBC Driver 18 for SQL Server
+STREAMLIT_SERVER_PORT=8501
+DEBUG=False
+Save the .env file.
+
+Ensure the environment variables are set during deployment:
+
+For local development, python-dotenv will automatically load these values.
+For Azure deployment, set these as application settings under the App Service.
+
+
 ## How to Run Locally
 1. Clone the repository:
    ```bash
